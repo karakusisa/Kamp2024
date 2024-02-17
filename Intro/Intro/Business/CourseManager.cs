@@ -1,4 +1,5 @@
-﻿using Intro.DataAccess.Concretes;
+﻿using Intro.DataAccess.Abstracts;
+using Intro.DataAccess.Concretes;
 using Intro.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,16 @@ namespace Intro.Business;
 
 public class CourseManager
 {
-    Course[] cousses = {
-        new Course { Id = 1, Description = "Delphi", Name = "Delphi", Price = 0 }
-    };
-    public CourseManager()
-    {
 
-    }
-    public  List<Course> GetAll()
+    private readonly ICourseDal _courseDal;
+
+    public CourseManager(ICourseDal courseDal)
     {
-        //Console.WriteLine("GetAll()-> Kurslar listelendi");
-        CourseDal courseDal = new(); 
-        return courseDal.GetAll();
+        _courseDal = courseDal;
+    }
+
+    public List<Course> GetAll()
+    {
+        return _courseDal.GetAll();
     }
 }
